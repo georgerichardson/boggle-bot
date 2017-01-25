@@ -17,5 +17,33 @@ class Board(object):
 		self.board = board
 
 
-	def get_paths(self, board):
-		pass
+	def get_paths(self, board, min_length=3, output=False):
+		'''Finds and returns all of the possible word paths on the board.
+        '''
+        # create queue of starting coordinates, starting with points of letters
+        queue = [[(row, col) for col in range(cols)] for row in range(rows)]
+        # add all starting points to final output
+        paths = queue.copy()
+        # possible steps that can be taken from any tile
+        steps = [(0, 1), (0, -1), (1, 0), (1, 1), (1, -1), (-1, 0), (-1, 1), (-1, -1)]
+
+        # while there are still items in the queue
+        while queue:
+        # pop last path tuple list from end of queue
+        start_path = queue.pop()
+        # use last coordinate of the path as new search point
+        start_row, start_col = start_path[-1]
+        # search for possible steps around the point
+        for drow, dcol in steps:
+            row2 = start_row + drow
+            col2 = start_col + dcol
+            new_path = start_path.copy()
+            if 0 <= row2 < row_length and 0 <= col2 < col_length:
+                # check if point already exists in path
+                if (row2, col2) not in start_path:
+                    # add path to final paths list and to queue
+                    new_path.append((row2, col2))
+                    paths.append(new_path)
+                    queue.append(new_path)
+
+        self.paths = paths
