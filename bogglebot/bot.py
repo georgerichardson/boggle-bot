@@ -21,7 +21,7 @@ class Board(object):
 		'''Finds and returns all of the possible word paths on the board.
         '''
         # create queue of starting coordinates, starting with points of letters
-        queue = [[(row, col) for col in range(cols)] for row in range(rows)]
+        queue = [[(row, col) for col in range(self.cols)] for row in range(self.rows)]
         # add all starting points to final output
         paths = queue.copy()
         # possible steps that can be taken from any tile
