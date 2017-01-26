@@ -1,5 +1,6 @@
 import string
 import random
+from nltk import 
 
 class Board(object):
 	def __init__(self):
@@ -16,14 +17,20 @@ class Board(object):
 		self.tiles = rows * cols
 		self.board = board
 
+    def get_webboggle_board(self, url):
+        pass
 
 	def get_paths(self, board, min_length=3, output=False):
 		'''Finds and returns all of the possible word paths on the board.
+
+        Returns:
+        paths - all of the possible pathways on the board above the minimum
+        length threshold
         '''
         # create queue of starting coordinates, starting with points of letters
         queue = [[(row, col) for col in range(self.cols)] for row in range(self.rows)]
         # add all starting points to final output
-        paths = queue.copy()
+        paths = [path for path in queue if len(path) >= min_length]
         # possible steps that can be taken from any tile
         steps = [(0, 1), (0, -1), (1, 0), (1, 1), (1, -1), (-1, 0), (-1, 1), (-1, -1)]
 
@@ -43,7 +50,18 @@ class Board(object):
                 if (row2, col2) not in start_path:
                     # add path to final paths list and to queue
                     new_path.append((row2, col2))
-                    paths.append(new_path)
                     queue.append(new_path)
+                    if len(path) >= min_length:
+                        paths.append(new_path)
 
         self.paths = paths
+
+class BoggleBot(object):
+    def __init__(self):
+        pass
+
+    def find_words(self):
+        pass
+
+    def score(self):
+        pass
