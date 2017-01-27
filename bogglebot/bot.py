@@ -56,12 +56,22 @@ class Board(object):
 
         self.paths = paths
 
+    def letter_combos(self):
+        letter_combos = [[self.board[row][col] for row, col in path] for path in self.paths]
+        return letter_combos
+
+
+
 class BoggleBot(object):
     def __init__(self):
         pass
 
-    def find_words(self):
-        pass
+    def english_words(self, words):
+        english_vocab = set(w.lower() for w in nltk.corpus.words.words())
+        
+        
+
+
 
     def score(self):
         pass
