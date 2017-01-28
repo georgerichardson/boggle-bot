@@ -71,9 +71,8 @@ class BoggleBot(object):
 
     def english_words(self, letter_combos):
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
-
-        
-        
+        self.english_words = [word for word in letter_combos if word in english_vocab]
+        return self.english_words
 
 
 
