@@ -60,9 +60,10 @@ class Board(object):
         return paths
 
     def letter_combos(self):
+        ''' Returns a list of all the possible letter combinations on the board.
+        '''
         self.letter_combos = [''.join([self.board[row][col] for row, col in path]) for path in self.paths]
         return letter_combos
-
 
 
 class BoggleBot(object):
@@ -70,11 +71,16 @@ class BoggleBot(object):
         self.board = board
 
     def english_words(self, letter_combos):
+        '''Retrieves 
+        '''
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
         self.english_words = [word for word in letter_combos if word in english_vocab]
         return self.english_words
 
+    def word_score(self):
+        self.word_score = {word: len(word)-2 for word in self.english_words}
+        return self.word_score
 
-
-    def score(self):
-        pass
+    def total_score(self):
+        self.total_score = sum(self.word_score.values())
+        return self.total_score
