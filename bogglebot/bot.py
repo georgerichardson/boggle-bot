@@ -17,6 +17,8 @@ class Board(object):
 		self.tiles = rows * cols
 		self.board = board
 
+        return board
+
     def get_webboggle_board(self, url):
         pass
 
@@ -55,19 +57,21 @@ class Board(object):
                         paths.append(new_path)
 
         self.paths = paths
+        return paths
 
     def letter_combos(self):
-        letter_combos = [[self.board[row][col] for row, col in path] for path in self.paths]
+        self.letter_combos = [''.join([self.board[row][col] for row, col in path]) for path in self.paths]
         return letter_combos
 
 
 
 class BoggleBot(object):
-    def __init__(self):
-        pass
+    def __init__(self, board):
+        self.board = board
 
-    def english_words(self, words):
+    def english_words(self, letter_combos):
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
+
         
         
 
