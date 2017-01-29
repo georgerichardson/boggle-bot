@@ -8,7 +8,8 @@ class Board(object):
 
 	def random_board(self, rows=4, cols=4):
         '''Makes a board of random letters.
-        Probably doesn't represent the distribution of letters on a real Boggle board.
+
+        DOES NOT represent the distribution of letters on a real Boggle board.
         '''
 		alphabet = string.ascii_letters.lower()
         board = [[random.choice(alphabet) for col in range(cols)] for row in range(rows)]
@@ -17,7 +18,31 @@ class Board(object):
 		self.tiles = rows * cols
 		self.board = board
 
-        return board
+        return self.board
+
+    def random_board_big(self):
+        '''Makes a 5x5 board of letters randomly selected from the shuffled die in Boggle.
+        '''
+        die = ['aaafrs', 'aaeeee', 'aafirs', 'adennn', 'aeeeem',
+               'aeegmu', 'aegmnn', 'afirsy', 'bjkqxz', 'ccnstw',
+               'ceiilt', 'ceilpt', 'ceipst', 'dhhnot', 'dhhlor',
+               'dhlnor', 'ddlnor', 'eiiitt', 'emottt', 'ensssu',
+               'fiprsy', 'gorrvw', 'hiprry', 'nootuw', 'ooottu']
+        random.shuffle(die)
+        board = [[random.choice(die.pop()) for col in range(5)] for row in range(5)]
+        return self.board
+
+
+    def random_board_small(self):
+        '''Makes a 4x4 board of letters randomly selected from the shuffled die in Boggle.
+        '''
+        die = ['aaeegn', 'elrtty', 'aoottw', 'abbjoo',
+               'ehrtvw', 'cimotu', 'distty', 'eiosst', 
+               'delrvy', 'achops', 'himnqu', 'eeinsu',
+               'eeghnw', 'affkps', 'hlnnrz', 'deilrx']
+        random.shuffle(die)
+        board = [[random.choice(die.pop()) for col in range(4)] for row in range(4)]
+        return self.board
 
     def get_webboggle_board(self, url):
         pass
