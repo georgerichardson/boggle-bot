@@ -3,20 +3,20 @@ import random
 from nltk import 
 
 class Board(object):
-	def __init__(self):
-		pass
+    def __init__(self):
+        pass
 
-	def random_board(self, rows=4, cols=4):
+    def random_board(self, rows=4, cols=4):
         '''Makes a board of random letters.
 
         DOES NOT represent the distribution of letters on a real Boggle board.
         '''
-		alphabet = string.ascii_letters.lower()
+        alphabet = string.ascii_letters.lower()
         board = [[random.choice(alphabet) for col in range(cols)] for row in range(rows)]
-		self.rows = rows
-		self.cols = cols
-		self.tiles = rows * cols
-		self.board = board
+        self.rows = rows
+        self.cols = cols
+        self.tiles = rows * cols
+        self.board = board
 
         return self.board
 
@@ -47,8 +47,13 @@ class Board(object):
     def get_webboggle_board(self, url):
         pass
 
-	def get_paths(self, board, min_length=3, output=False):
-		'''Finds and returns all of the possible word paths on the board.
+
+class BoggleBot(object):
+    def __init__(self, board):
+        self.board = board
+
+    def get_paths(self, board, min_length=3, output=False):
+        '''Finds and returns all of the possible word paths on the board.
 
         Returns:
         paths - all of the possible pathways on the board above the minimum
@@ -84,28 +89,36 @@ class Board(object):
         self.paths = paths
         return paths
 
-    def letter_combos(self):
+    def letter_combos(self, board):
         ''' Returns a list of all the possible letter combinations on the board.
         '''
         self.letter_combos = [''.join([self.board[row][col] for row, col in path]) for path in self.paths]
         return letter_combos
 
-
-class BoggleBot(object):
-    def __init__(self, board):
-        self.board = board
-
     def english_words(self, letter_combos):
-        '''Retrieves 
+        '''Retrieves english words from list of letter combinations.
         '''
         english_vocab = set(w.lower() for w in nltk.corpus.words.words())
         self.english_words = [word for word in letter_combos if word in english_vocab]
         return self.english_words
 
     def word_score(self):
+        '''Calculate boggle score of English words found on board.
+        '''
         self.word_score = {word: len(word)-2 for word in self.english_words}
         return self.word_score
 
     def total_score(self):
+        '''Find total Boggle score of English words on board.
+        '''
         self.total_score = sum(self.word_score.values())
         return self.total_score
+
+class Student(object):
+    '''Uses a BoggleBot as a teacher to learn the English vocabulary.
+    '''
+
+    def __init__(self, bot):
+        self.teacher = bot
+
+
