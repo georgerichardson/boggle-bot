@@ -52,7 +52,7 @@ class BoggleBot(object):
     def __init__(self, board):
         self.board = board
 
-    def get_paths(self, board, min_length=3, output=False):
+    def find_paths(self, board, min_length=3, output=False):
         '''Finds and returns all of the possible word paths on the board.
 
         Returns:
@@ -118,7 +118,16 @@ class Student(object):
     '''Uses a BoggleBot as a teacher to learn the English vocabulary.
     '''
 
-    def __init__(self, bot):
-        self.teacher = bot
+    def __init__(self):
+        pass
 
+    def lesson(self, show=False):
+        '''
+        Learns from a board and a bot (teacher)
+        '''
+        board = Board()
+        board = random_board_small()
+        teacher = BoggleBot(board)
+        letter_combos = techer.letter_combos(board)
+        total_score = teacher.total_score()
 
